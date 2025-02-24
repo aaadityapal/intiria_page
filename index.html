@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTIRIA - Interior Design Solutions</title>
+    
+    <!-- Add these lines for favicon support -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="Hive Tag line 11 (1).png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Hive Tag line 11 (1).png">
+    <link rel="apple-touch-icon" sizes="180x180" href="Hive Tag line 11 (1).png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <style>
+        :root {
+            --red: #FF3131;
+            --black: #333;
+            --white: #fff;
+        }
+
+        /* Header styles */
+        header { 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo img {
+            height: 35px;
+        }
+
+        .desktop-menu ul {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .desktop-menu ul li {
+            margin-left: 15px;
+            position: relative;
+        }
+
+        .desktop-menu ul li a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .desktop-menu ul li a:hover {
+            color: var(--red);
+        }
+
+        .desktop-menu .dropdown-toggle::after {
+            content: '\25BC';
+            font-size: 8px;
+            margin-left: 3px;
+            vertical-align: middle;
+        }
+
+        .desktop-menu .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: -10%;
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 180px;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .desktop-menu .dropdown:hover .submenu {
+            display: block;
+        }
+
+        .desktop-menu .submenu li {
+            margin: 0;
+            padding: 8px 15px;
+        }
+
+        .desktop-menu .submenu li a {
+            font-size: 13px;
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--black);
+            margin: 5px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .hamburger:hover span {
+            background-color: var(--red);
+        }
+
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
+            padding-top: 60px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu ul li {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu ul li a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: var(--red);
+        }
+
+        .mobile-menu .submenu {
+            display: none;
+            padding-left: 10px;
+        }
+
+        .mobile-menu .submenu.active {
+            display: block;
+        }
+
+        .mobile-menu .dropdown-toggle::after {
+            content: '\25BC';
+            float: right;
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+
+        .mobile-menu .dropdown-toggle.active::after {
+            transform: rotate(180deg);
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002;
+            color: var(--black);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .close-menu:hover {
+            color: var(--red);
+            transform: rotate(90deg);
+        }
+
+        /* Video gallery styles */
+        .video-gallery {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+        .video-container {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+        .video-container video {
+            width: 100vw;
+            height: 80vh;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .animated-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .highlight {
+            color: var(--red);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .animated-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+        }
+
+        .animated-button {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        .cta-button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background-color: var(#FF3131);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cta-button:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .video-gallery {
+                height: 50vh; /* Decreased height for mobile */
+            }
+            .video-container video {
+                height: 50vh; /* Decreased height for mobile */
+            }
+            .animated-title {
+                font-size: 2rem; /* Reduced font size for mobile */
+                line-height: 1.2; /* Improved line height for readability */
+            }
+            .animated-subtitle {
+                font-size: 1rem; /* Reduced font size for mobile */
+                line-height: 1.4; /* Improved line height for readability */
+                margin-bottom: 1.5rem; /* Reduced margin for tighter layout */
+            }
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Additional styles for very small screens */
+        @media (max-width: 360px) {
+            .animated-title {
+                font-size: 1.8rem;
+            }
+            .animated-subtitle {
+                font-size: 0.9rem;
+            }
+            .cta-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 5px;
+        }
+
+        /* Form styles */
+        .form-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: var(--red);
+            font-size: 24px;
+        }
+        .form-container input,
+        .form-container button {
+            display: block;
+            width: 100%;
+            margin: 15px 0;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container input:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 5px rgba(255,0,0,0.2);
+        }
+        .form-container button {
+            background-color: var(--red);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-container button:hover {
+            background-color: #FF3131;
+        }
+        .close-form {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--red);
+            transition: transform 0.3s ease;
+        }
+        .close-form:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Services section styles */
+        .services-section {
+            position: relative;
+            padding: 60px 0;
+            overflow: hidden;
+        }
+
+        .services-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .services-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .services-section .section-title,
+        .services-section .section-description {
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: var(--red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-title-underline {
+            width: 100px;
+            height: 3px;
+            background-color: var(--red);
+            margin: 10px auto 30px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tiles-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .tile {
+            width: calc(33.333% - 20px);
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tile-front, .tile-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tile-front {
+            z-index: 2;
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+        }
+
+        .tile-front::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            z-index: 1;
+        }
+
+        .tile-back {
+            transform: rotateY(180deg);
+            background-color: rgb(255, 0, 0);
+            color: white;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .tile:hover .tile-front {
+            transform: rotateY(180deg);
+        }
+
+        .tile:hover .tile-back {
+            transform: rotateY(0deg);
+        }
+
+        .tile h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: white;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .tile p {
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .tile-back {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .tile-button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: white;
+            color: var(#FF3131);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .tile-button:hover {
+            background-color: var(--red);
+            color: white;
+        }
+
+        .tile-button.view-projects {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .tile {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tile {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* Pricing Section Styles */
+        .pricing-section {
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .pricing-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .pricing-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-section .section-title,
+        .pricing-section .section-description {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-plan {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 30px;
+            width: 300px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-plan:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-plan.featured {
+            background-color: #FF3131;
+            color: white;
+        }
+
+        .pricing-plan h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .plan-title-underline {
+            width: 50px;
+            height: 3px;
+            background-color: #FF3131;
+            margin: 10px auto 20px;
+        }
+
+        .pricing-plan.featured .plan-title-underline {
+            background-color: white;
+        }
+
+        .pricing-plan ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .pricing-plan ul li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .pricing-plan ul li::before {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #FF3131;
+        }
+
+        .pricing-plan ul li::before {
+            content: '\f067';
+        }
+
+        .pricing-plan.featured ul li::before {
+            color: white;
+        }
+
+        .plan-button {
+            background-color: var(--red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .pricing-plan.featured .plan-button {
+            background-color: white;
+            color: var(--red);
+        }
+
+        .plan-button:hover {
+            background-color: #cc0000;
+        }
+
+        .pricing-plan.featured .plan-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-container {
+                flex-wrap: wrap;
+            }
+            .pricing-plan {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-plan {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* Commercial Pricing Section Styles */
+        .commercial-section {
+            background-color: #f5f5f5;
+        }
+
+        .commercial-section .pricing-plan {
+            background-color: #ffffff;
+        }
+
+        .commercial-section .pricing-plan.featured {
+            background-color: #0066cc;
+        }
+
+        .commercial-section .pricing-plan ul li::before {
+            color: #0066cc;
+        }
+
+        .commercial-section .plan-button {
+            background-color: #0066cc;
+        }
+
+        .commercial-section .plan-button:hover {
+            background-color: #004d99;
+        }
+
+        .commercial-section .pricing-plan.featured .plan-button {
+            background-color: white;
+            color: #0066cc;
+        }
+
+        .commercial-section .pricing-plan.featured .plan-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .pricing-container {
+                flex-wrap: wrap;
+            }
+            .pricing-plan {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-plan {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* Industrial Pricing Section Styles */
+        .industrial-section {
+            background-color: #e6e6e6;
+        }
+
+        .industrial-section .pricing-plan {
+            background-color: #ffffff;
+        }
+
+        .industrial-section .pricing-plan.featured {
+            background-color: #ff6600;
+        }
+
+        .industrial-section .pricing-plan ul li::before {
+            color: #ff6600;
+        }
+
+        .industrial-section .plan-button {
+            background-color: #ff6600;
+        }
+
+        .industrial-section .plan-button:hover {
+            background-color: #cc5200;
+        }
+
+        .industrial-section .pricing-plan.featured .plan-button {
+            background-color: white;
+            color: #ff6600;
+        }
+
+        .industrial-section .pricing-plan.featured .plan-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .pricing-container {
+                flex-wrap: wrap;
+            }
+            .pricing-plan {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-plan {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        .tile-back {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .tile-button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: white;
+            color: var(--red);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none; /* Add this line to remove the underline */
+        }
+
+        .tile-button:hover {
+            background-color: var(--red);
+            color: white;
+        }
+
+        .tile-button.view-projects {
+            margin-bottom: 5px;
+        }
+
+        /* Stats Section Styles */
+        .stats-section {
+            position: relative;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.3);
+            z-index: -1;
+        }
+
+        .stats-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            flex: 1 1 200px;
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .stat-item {
+                flex-basis: 40%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-item {
+                flex-basis: 100%;
+            }
+        }
+
+        /* Footer Styles */
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+        }
+
+        .footer-column address, .footer-column ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .footer-column ul li a:hover {
+            color: red;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .subscribe {
+            margin-top: 10px;
+        }
+
+        #subscribe-form {
+            display: flex;
+        }
+
+        #subscribe-form input[type="email"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+        }
+
+        #subscribe-form button {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-left: none;
+            border-radius: 0 4px 4px 0;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        #subscribe-form button:hover {
+            background-color: #eee;
+        }
+
+        .social-media-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .social-media-icons a {
+            text-decoration: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-media-icons a .fab, .social-media-icons a .fas {
+            font-size: 24px;
+        }
+
+        /* Color classes for each social media */
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .facebook:hover {
+            background-color: #2d4373;
+        }
+
+        .twitter {
+            background-color: #1da1f2;
+        }
+
+        .twitter:hover {
+            background-color: #0a85d8;
+        }
+
+        .instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .instagram:hover {
+            background: linear-gradient(45deg, #d9773b 0%, #d15d45 25%, #b94547 50%, #b1346a 75%, #a21a7a 100%);
+        }
+
+        .linkedin {
+            background-color: #0077b5;
+        }
+
+        .linkedin:hover {
+            background-color: #005983;
+        }
+
+        .google-maps {
+            background-color: #db4437;
+        }
+
+        .google-maps:hover {
+            background-color: #b33624;
+        }
+
+        .whatsapp {
+            background-color: #25d366;
+        }
+
+        .whatsapp:hover {
+            background-color: #1ebd58;
+        }
+
+        .footer-bottom {
+            background-color: #eaeaea;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+        }
+
+        .footer-bottom ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        .footer-bottom ul li a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .footer-bottom ul li a:hover {
+            color: red;
+        }
+
+        .footer-bottom .social-icons {
+            margin-top: 10px;
+        }
+
+        .footer-bottom .social-icons a {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .bottom {
+            text-align: center;
+            font-weight: 700;
+            font-size: 10px;
+        }
+
+        .quote-link-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .quote-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--red);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quote-link:hover {
+            background-color: #d32f2f;
+        }
+
+        .plan-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            position: relative;
+            display: none;
+            height: auto; /* Set height to 90% of viewport height */
+            overflow: hidden; /* Hide overflow */
+        }
+
+        .plan-container iframe {
+            width: 100%;
+            height: 100%; /* Make iframe fill the container */
+            border: none; /* Remove iframe border */
+        }
+
+        /* Adjust for very small screens */
+        @media (max-width: 360px) {
+            .plan-container {
+                height: 95vh; /* Increase height on very small screens */
+            }
+        }
+
+        .close-plan-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .pricing-spacer {
+            height: 100px; /* Adjust this value to increase or decrease the gap */
+            background-color: #ffffff; /* Or any color that matches your design */
+        }
+
+        .diagonal-divider {
+            position: relative;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f6f6f6 0%, #e9e9e9 100%);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .diagonal-divider::before,
+        .diagonal-divider::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+
+        .diagonal-divider::before {
+            top: 0;
+            height: 50px;
+            background: linear-gradient(to right bottom, #fff 49%, transparent 50%);
+        }
+
+        .diagonal-divider::after {
+            bottom: 0;
+            height: 50px;
+            background: linear-gradient(to right top, #fff 49%, transparent 50%);
+        }
+
+        .divider-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .diagonal-divider h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .diagonal-divider p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .wave-divider {
+            position: relative;
+            height: 100px; /* Reduced from 150px */
+            width: 100%;
+            background: linear-gradient(60deg, rgba(220,20,60,1) 0%, rgba(255,99,71,1) 100%);
+            overflow: hidden;
+        }
+
+        .waves {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70px; /* Reduced from 100px */
+            min-height: 70px; /* Reduced from 100px */
+            max-height: 100px; /* Reduced from 150px */
+        }
+
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) {
+            animation-delay: -2s;
+            animation-duration: 7s;
+            fill: rgba(255,99,71,0.7);
+        }
+        .parallax > use:nth-child(2) {
+            animation-delay: -3s;
+            animation-duration: 10s;
+            fill: rgba(255,99,71,0.5);
+        }
+        .parallax > use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+            fill: rgba(255,99,71,0.3);
+        }
+        .parallax > use:nth-child(4) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+            fill: rgba(220,20,60,1);
+        }
+
+        @keyframes move-forever {
+            0% {
+                transform: translate3d(-90px,0,0);
+            }
+            100% { 
+                transform: translate3d(85px,0,0);
+            }
+        }
+
+        /* Shrink waves for mobile */
+        @media (max-width: 768px) {
+            .waves {
+                height: 30px; /* Reduced from 40px */
+                min-height: 30px; /* Reduced from 40px */
+            }
+            .wave-divider {
+                height: 60px; /* Reduced from 80px */
+            }
+        }
+
+        .section-title-underline {
+            width: 100px;
+            height: 3px;
+            background-color: var(--red);
+            margin: 10px auto 30px;
+        }
+
+        .highlight-white {
+            color: white;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .animated-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .highlight {
+            color: var(--red);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .animated-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+        }
+
+        .animated-button {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        .cta-button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background-color: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cta-button:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .video-gallery {
+                height: 50vh; /* Decreased height for mobile */
+            }
+            .video-container video {
+                height: 50vh; /* Decreased height for mobile */
+            }
+            .animated-title {
+                font-size: 2rem; /* Reduced font size for mobile */
+                line-height: 1.2; /* Improved line height for readability */
+            }
+            .animated-subtitle {
+                font-size: 1rem; /* Reduced font size for mobile */
+                line-height: 1.4; /* Improved line height for readability */
+                margin-bottom: 1.5rem; /* Reduced margin for tighter layout */
+            }
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Additional styles for very small screens */
+        @media (max-width: 360px) {
+            .animated-title {
+                font-size: 1.8rem;
+            }
+            .animated-subtitle {
+                font-size: 0.9rem;
+            }
+            .cta-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="INTIRIA Logo">
+        </div>
+        <nav class="desktop-menu">
+            <ul>
+                <li class="dropdown">
+                    <a href="https://www.architectshive.com/" class="dropdown-toggle">DeSIGN</a>
+                    <ul class="submenu">
+                        <li><a href="https://www.architectshive.com/book-appointment">BOOK APPOINTMENT</a></li>
+                        <li><a href="https://www.architectshive.com/services">SERVICES</a></li>
+                        <li><a href="https://www.architectshive.com/vendors">VENDORS</a></li>
+                        <li><a href="https://www.architectshive.com/blogs">BLOGS</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="index.html" class="dropdown-toggle">INTIRIA</a>
+                    <ul class="submenu">
+                        <li><a href="#services">INTIRIA PROJECTS</a></li>
+                        <li><a href="#residential-pricing">RESIDENTIAL</a></li>
+                        <li><a href="#commercial-pricing">COMMERCIAL</a></li>
+                        <li><a href="#industrial-pricing">INDUSTRIAL</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://www.architectshive.com/construct">CNSTRCT</a></li>
+                <li><a href="https://www.architectshive.com/project">PROJECTS</a></li>
+                <li><a href="https://www.architectshive.com/about-us">ABOUT US</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay"></div>
+    <nav class="mobile-menu">
+        <ul>
+            <li class="dropdown">
+                <a href="https://www.architectshive.com/" class="dropdown-toggle">DeSIGN</a>
+                <ul class="submenu">
+                    <li><a href="https://www.architectshive.com/book-appointment">BOOK APPOINTMENT</a></li>
+                    <li><a href="https://www.architectshive.com/services">SERVICES</a></li>
+                    <li><a href="https://www.architectshive.com/vendors">VENDORS</a></li>
+                    <li><a href="https://www.architectshive.com/blogs">BLOGS</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="index.html" class="dropdown-toggle">INTIRIA</a>
+                <ul class="submenu">
+                    <li><a href="#services">INTIRIA PROJECTS</a></li>
+                    <li><a href="#residential-pricing">RESIDENTIAL</a></li>
+                    <li><a href="#commercial-pricing">COMMERCIAL</a></li>
+                    <li><a href="#industrial-pricing">INDUSTRIAL</a></li>
+                </ul>
+            </li>
+            <li><a href="https://www.architectshive.com/construct">CNSTRCT</a></li>
+            <li><a href="https://www.architectshive.com/project">PROJECTS</a></li>
+            <li><a href="https://www.architectshive.com/about-us">ABOUT US</a></li>
+        </ul>
+        <div class="close-menu">✕</div>
+    </nav>
+
+    <div class="video-gallery">
+        <div class="video-container">
+            <video autoplay muted loop playsinline>
+                <source src="3770017-hd_1920_1080_25fps.mp4" type="video/mp4">
+                <source src="3770017-hd_1920_1080_25fps.webm" type="video/webm">
+            </video>
+            <video autoplay muted loop playsinline>
+                <source src="3773486-hd_1920_1080_30fps.mp4" type="video/mp4">
+                <source src="3773486-hd_1920_1080_30fps.webm" type="video/webm">
+            </video>
+            <video autoplay muted loop playsinline>
+                <source src="7578552-uhd_3840_2160_30fps.mp4" type="video/mp4">
+                <source src="7578552-uhd_3840_2160_30fps.webm" type="video/webm">
+            </video>
+        </div>
+        <div class="overlay-text">
+            <h1 class="animated-title">Welcome to <span class="highlight">INTIRIA</span></h1>
+            <p class="animated-subtitle">"From concept to completion,<br> We turn your ideas into stunning realities."</p>
+            <button class="cta-button animated-button">Get Started</button>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="services-background"></div>
+        <div class="services-content">
+            <h2 class="section-title">Our Projects</h2>
+            <div class="section-title-underline"></div>
+            <p class="section-description">From concept to completion,<br> We turn your ideas into stunning realities.</p>
+            
+            <div class="tiles-container">
+                <div class="tile" data-target="residential">
+                    <div class="tile-front" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');">
+                        <h3>Residential Interior</h3>
+                    </div>
+                    <div class="tile-back">
+                        <p>Crafting beautiful and functional spaces<br> tailored to your lifestyle.</p>
+                        <a href="https://www.architectshive.com/project/residence-projects" target="_blank" class="tile-button view-projects">View Projects</a>
+                        <button class="tile-button get-quote">Get Quote</button>
+                    </div>
+                </div>
+                <div class="tile" data-target="commercial">
+                    <div class="tile-front" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');">
+                        <h3>Commercial Interior</h3>
+                    </div>
+                    <div class="tile-back">
+                        <p>Creating productive and inspiring workspaces<br> for businesses.</p>
+                        <a href="https://www.architectshive.com/project/ingress" target="_blank" class="tile-button view-projects">View Projects</a>
+                        <button class="tile-button get-quote">Get Quote</button>
+                    </div>
+                </div>
+                <div class="tile" data-target="industrial">
+                    <div class="tile-front" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');">
+                        <h3>Industrial Interior</h3>
+                    </div>
+                    <div class="tile-back">
+                        <p>Designing efficient and safe environments for <br>industrial spaces.</p>
+                        <a href="https://www.architectshive.com/project/industrial-projects" target="_blank" class="tile-button view-projects">View Projects</a>
+                        <button class="tile-button get-quote">Get Quote</button>
+                    </div>
+                </div>
+                <div class="tile" data-target="institutional">
+                    <div class="tile-front" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');">
+                        <h3>Institutional Interior</h3>
+                    </div>
+                    <div class="tile-back">
+                        <p>Creating functional and inspiring spaces<br> for educational institutions.</p>
+                        <a href="https://www.architectshive.com/project/school-at-sonipat" target="_blank" class="tile-button view-projects">View Projects</a>
+                        <button class="tile-button get-quote">Get Quote</button>
+                    </div>
+                </div>
+                <div class="tile" data-target="retail">
+                    <div class="tile-front" style="background-image: url('IMG_3186.JPEG');">
+                        <h3>Marriage Home / Resorts</h3>
+                    </div>
+                    <div class="tile-back">
+                        <p>Designing attractive and functional retail spaces that enhance customer experience.</p>
+                        <a href="https://www.architectshive.com/marriage-home-projects" target="_blank" class="tile-button view-projects">View Projects</a>
+                        <button class="tile-button get-quote">Get Quote</button>
+                    </div>
+                </div>
+                <div class="tile" data-target="healthcare">
+                    <div class="tile-front" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80');">
+                        <h3>Hospital Interior</h3>
+                    </div>
+                    <div class="tile-back">
+                        <p>Creating healing environments that promote patient<br> well-being and staff efficiency.</p>
+                        <a href="https://www.architectshive.com/project/healthcare-projects" target="_blank" class="tile-button view-projects">View Projects</a>
+                        <button class="tile-button get-quote">Get Quote</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Residential Pricing Section -->
+    <section class="pricing-section" id="residential-pricing" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80'); background-size: cover; background-position: center;">
+        <h2 class="section-title">Residential Interior Packages</h2>
+        <div class="section-title-underline"></div>
+        <p class="section-description">Choose the perfect package for your interior design needs</p>
+        
+        <div class="pricing-container">
+            <div class="pricing-plan">
+                <h3>Standard Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Concept Design (Google Images for Reference)</li>
+                    <li>2D Drawings (Wall panelling, Flooring, False Ceiling, Kitchen Details, Bathroom Details, Door / Window Details, Staircase Details)</li>
+                    <li>Service Drawings (Electrical, Water Supply & Plumbing)</li>
+                    <li>Colour Combinations, Material Suggestions</li>
+                    <li>Assistance for contractor finalization & contract specification.</li>
+                    <li>Audio/ Video call Assistance throughtout the project duration.</li>
+                    <li>Site Visits Assistance.</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="basic">Get Quote</button>
+            </div>
+            <div class="pricing-plan featured">
+                <h3>Premium Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Standard Plan Features</li>
+                    <li>3D Views for all Spaces</li>
+                    <li> Additional 5 Site Visits</li>
+                    <li>Vastu Incorporation</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="premium">Get Quote</button>
+            </div>
+            <div class="pricing-plan">
+                <h3>Elite Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Premium Plan Feature.</li>
+                    <li> Scientific Vastu.</li>
+                    <li>Furniture Details.</li>
+                    <li>Onsite Sample Selection.</li>
+                    <li>Online Vendor Management System (Mobile App.)</li>
+                    <li>Project Management / Timelines Monitoring</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="deluxe">Get Quote</button>
+            </div>
+        </div>
+
+        <div id="residential-plan-container" class="plan-container">
+            <span class="close-plan-container">&times;</span>
+            <iframe id="residential-plan-iframe" src="" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Commercial Pricing Section -->
+    <section class="pricing-section" id="commercial-pricing" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80'); background-size: cover; background-position: center;">
+        <h2 class="section-title">Commercial Interior Packages</h2>
+        <div class="section-title-underline"></div>
+        <p class="section-description">Tailored solutions for your business space</p>
+        
+        <div class="pricing-container">
+            <div class="pricing-plan">
+                <h3>Standard Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Concept Design (Google Images for Reference)</li>
+                    <li>2D Drawings (Wall panelling, Flooring, False Ceiling, Kitchen Details, Bathroom Details, Door / Window Details, Staircase Details)</li>
+                    <li>Service Drawings (Electrical, Water Supply & Plumbing)</li>
+                    <li>Colour Combinations, Material Suggestions</li>
+                    <li>Assistance for contractor finalization & contract specification</li>
+                    <li>Audio/ Video call Assistance throughtout the project duration</li>
+                    <li>Site Visits Assistance</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="commercial-startup">Get Quote</button>
+            </div>
+            <div class="pricing-plan featured">
+                <h3>Premium Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Standard Plan Features</li>
+                    <li> 3D Views for all Spaces</li>
+                    <li>Additional 5 Site Visits</li>
+                    <li>Vastu Incorporation</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="commercial-corporate">Get Quote</button>
+            </div>
+            <div class="pricing-plan">
+                <h3>Elite Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Premium Plan Feature</li>
+                    <li>Scientific Vastu</li>
+                    <li>Furniture Details</li>
+                    <li>Onsite Sample Selection</li>
+                    <li>Online Vendor Management System (Mobile App.)</li>
+                    <li>Project Management / Timelines Monitoring</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="commercial-enterprise">Get Quote</button>
+            </div>
+        </div>
+
+        <div id="commercial-plan-container" class="plan-container">
+            <span class="close-plan-container">&times;</span>
+            <iframe id="commercial-plan-iframe" src="" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Industrial Pricing Section -->
+    <section class="pricing-section" id="industrial-pricing" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80'); background-size: cover; background-position: center;">
+        <h2 class="section-title">Industrial Interior Packages</h2>
+        <div class="section-title-underline"></div>
+        <p class="section-description">Robust solutions for your industrial space</p>
+        
+        <div class="pricing-container">
+            <div class="pricing-plan">
+                <h3>Standard Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Concept Design (Google Images for Reference)</li>
+                    <li>2D Drawings (Wall panelling, Flooring, False Ceiling, Kitchen Details, Bathroom Details, Door / Window Details, Staircase Details)</li>
+                    <li>Service Drawings (Electrical, Water Supply & Plumbing)</li>
+                    <li>Colour Combinations, Material Suggestions</li>
+                    <li>Assistance for contractor finalization & contract specification</li>
+                    <li>Audio/ Video call Assistance throughtout the project duration</li>
+                    <li>Site Visits Assistance</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="industrial-standard">Get Quote</button>
+            </div>
+            <div class="pricing-plan featured">
+                <h3>Premium Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Standard Plan Features</li>
+                    <li>3D Views for all Spaces</li>
+                    <li>Additional 5 Site Visits</li>
+                    <li>Vastu Incorporation</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="industrial-advanced">Get Quote</button>
+            </div>
+            <div class="pricing-plan">
+                <h3>Premium Plan</h3>
+                <div class="plan-title-underline"></div>
+                <ul>
+                    <li>Premium Plan Feature</li>
+                    <li>Scientific Vastu</li>
+                    <li>Furniture Details</li>
+                    <li>Onsite Sample Selection</li>
+                    <li>Online Vendor Management System (Mobile App.)</li>
+                    <li>Project Management / Timelines Monitoring</li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="plan-button" data-plan="industrial-premium">Get Quote</button>
+            </div>
+        </div>
+
+        <div id="industrial-plan-container" class="plan-container">
+            <span class="close-plan-container">&times;</span>
+            <iframe id="industrial-plan-iframe" src="" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="parallax-bg"></div>
+        <div class="stats-container">
+            <h2 class="section-title">Your <span class="highlight-white">Dream</span>, Our <span class="highlight-white">DESIGN</span>, We <span class="highlight-white">CNSTRCT</span></h2>
+            <div class="section-title-underline"></div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="105">0</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="70">0</span>
+                    <span class="stat-label">Clients</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="24">0</span>
+                    <span class="stat-label">Architects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Years of Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="10">0</span>
+                    <span class="stat-label">Cities</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Information Form -->
+    <div class="form-container">
+        <span class="close-form">&times;</span>
+        <h2>Get Started with INTIRIA</h2>
+        <form name="user-query" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="user-query">
+            <input type="text" name="fullname" placeholder="Full Name*" required>
+            <input type="tel" name="mobile" placeholder="Mobile Number*" required>
+            <input type="email" name="email" placeholder="Email*" required>
+            <input type="text" name="address" placeholder="Address*" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+     <!----Footer-->
+     <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h2>Head Office</h2>
+                <address>
+                    F-52, First Floor, <br>Near Gurudwara, Madhu Vihar, I.P. Extension, <br>Delhi-110092<br>
+                    <br>
+                    <br>
+                    <br>
+                    +91 7503468992<br>
+                    +91 9958600397<br>
+                    <a href="mailto:contact@architectshive.com">contact@architectshive.com</a>
+                </address>
+            </div>
+            <div class="footer-column">
+                <h2>Info</h2>
+                <ul>
+                    <li><a href="https://www.architectshive.com/construct">CNSTRCT</a></li>
+                    <li><a href="https://www.architectshive.com/">Builders Corner</a></li>
+                    <li><a href="https://www.architectshive.com/book-appointment">Hire Architect</a></li>
+                    <li><a href="https://www.architectshive.com/project">Projects</a></li>
+                    <li><a href="https://www.architectshive.com/services">Services</a></li>
+                    <li><a href="https://www.architectshive.com/blogs">Blogs</a></li>
+                    <li><a href="https://www.architectshive.com/about-us">About Us</a></li>
+                    <li><a href="https://www.architectshive.com/contact-us">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h2>Residential Projects</h2>
+                <ul>
+                    <li><a href="https://www.architectshive.com/project/mrsonu-residence">Residence At Jewar Greater Noida</a></li>
+                    <li><a href="https://www.architectshive.com/sector-12residence">Residence At Sector 12</a></li>
+                    <li><a href="https://www.architectshive.com/project/kuldeepsharmaresidence">Residence At Loni</a></li>
+                    <li><a href="https://www.architectshive.com/project/gupta-villa">Residence At Rohtak</a></li>
+                    <li><a href="https://www.architectshive.com/project/lalit-bhist-residence">Residence At Muradnagar</a></li>
+                    <li><a href="https://www.architectshive.com/project/mr-manoj-agrawal-residence">Residence At Sector-40 Noida</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h2>Commercial Projects</h2>
+                <ul>
+                    <li><a href="https://www.architectshive.com/project/ingress">Office At Gurgaon</a></li>
+                    <li><a href="https://www.architectshive.com/project/office-at-greenpark">Office At Green Park Delhi</a></li>
+                    <li><a href="https://www.architectshive.com/project/ri-style">Shop At Rohtak</a></li>
+                    <li><a href="https://www.architectshive.com/titan-eyeplus">Showroom At Kohat Enclave</a></li>
+                    <li><a href="https://www.architectshive.com/project/avery-dennison-gurgaon">Avery Dennison</a></li>
+                    <li><a href="https://www.architectshive.com/project/inayat-saloon">Studio At Delhi</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h2>Hotels / Restaurants / Healthcare</h2>
+                <ul>
+                    <li><a href="https://www.architectshive.com/project/ginger-hotel-mumbai">Hotel At Mumbai</a></li>
+                    <li><a href="https://www.architectshive.com/project/daily-dose-restraunt">Cafe At Dwarka</a></li>
+                    <li><a href="#">OYO Hotel At Hoshiyarpur</a></li>
+                    <li><a href="https://www.architectshive.com/project/annapurna-sweet-shop">Sweet Shop At Delhi</a></li>
+                    <li><a href="https://www.architectshive.com/project/lotus-labs-rohtak">Labs At Rohtak</a></li>
+                    <li><a href="https://www.architectshive.com/project/bharatpur-rajasthan-hospital">Hospital at Bharatpur</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h2>Resorts / Farmhouse / Marriage Home</h2>
+                <ul>
+                    <li><a href="https://www.architectshive.com/project/afzalpur-resort">Resort At Afzalpur</a></li>
+                    <li><a href="https://www.architectshive.com/project/rohtak-resort">Resort At Rohtak</a></li>
+                    <li><a href="https://www.architectshive.com/project/dehradun-farmhouse">Resort At Dehradun</a></li>
+                    <li><a href="https://www.architectshive.com/project/marriage-home">Marriage Home at Afzalpur</a></li>
+                    <li><a href="https://www.architectshive.com/project/gurgaon-marriage-home">Marriage Home at Gurugram</a></li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <ul>
+                <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                <li><a href="#">Terms Of Service</a></li>
+                <li><a href="shippingpolicy.html">Shipping Policy</a></li>
+                <li><a href="Disclaimer.html">Disclaimer</a></li>
+            </ul>
+            <div class="social-media-icons">
+                <a href="https://www.facebook.com/profile.php?id=100089457390637" class="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.twitter.com" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/architectshive_official/" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com" class="linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://maps.app.goo.gl/uZYVxkDP2uRRQwoP9" class="google-maps" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="https://wa.me/9429692912" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="bottom">
+            <p>Copyright © 2018-2024 ArchitectsHive Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const dropdownToggles = document.querySelectorAll('.mobile-menu .dropdown-toggle');
+        const closeMenu = document.querySelector('.close-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            mobileMenuOverlay.style.display = mobileMenu.classList.contains('active') ? 'block' : 'none';
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+        closeMenu.addEventListener('click', toggleMobileMenu);
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggle.classList.toggle('active');
+                const submenu = toggle.nextElementSibling;
+                submenu.classList.toggle('active');
+            });
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu a:not(.dropdown-toggle)');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // Video gallery swipe functionality
+        const videoContainer = document.querySelector('.video-container');
+        const videos = videoContainer.querySelectorAll('video');
+        let startX, moveX;
+        let index = 0;
+
+        function updateVideoPosition() {
+            videoContainer.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        videoContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        videoContainer.addEventListener('touchmove', (e) => {
+            moveX = e.touches[0].clientX;
+        });
+
+        videoContainer.addEventListener('touchend', () => {
+            if (startX - moveX > 50 && index < videos.length - 1) {
+                index++;
+            } else if (moveX - startX > 50 && index > 0) {
+                index--;
+            }
+            updateVideoPosition();
+        });
+
+        // Add mouse drag functionality for desktop
+        let isDragging = false;
+        let startDragX;
+
+        videoContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startDragX = e.clientX;
+            e.preventDefault(); // Prevent text selection during drag
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+        video.play().catch(error => {
+            console.log("Auto-play was prevented");
+            // You might want to show a play button here
+        });
+    });
+});
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dragDistance = e.clientX - startDragX;
+            if (Math.abs(dragDistance) > 50) {
+                if (dragDistance > 0 && index > 0) {
+                    index--;
+                } else if (dragDistance < 0 && index < videos.length - 1) {
+                    index++;
+                }
+                updateVideoPosition();
+                isDragging = false;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Prevent default drag behavior on videos
+        videos.forEach(video => {
+            video.addEventListener('dragstart', (e) => e.preventDefault());
+        });
+
+        // Update video position on window resize
+        window.addEventListener('resize', updateVideoPosition);
+
+        // Initial position update
+        updateVideoPosition();
+
+        // Form functionality
+        const ctaButton = document.querySelector('.cta-button');
+        const formContainer = document.querySelector('.form-container');
+        const closeForm = document.querySelector('.close-form');
+
+        ctaButton.addEventListener('click', () => {
+            formContainer.style.display = 'block';
+        });
+
+        closeForm.addEventListener('click', () => {
+            formContainer.style.display = 'none';
+        });
+
+        // Close form when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === formContainer) {
+                formContainer.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling function
+        function smoothScroll(target) {
+            const element = document.querySelector(target);
+            window.scrollTo({
+                top: element.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+
+        // Add click event listeners to "Get Quote" buttons
+        document.querySelectorAll('.tile .get-quote').forEach(button => {
+            button.addEventListener('click', function() {
+                const target = this.closest('.tile').dataset.target;
+                smoothScroll(`#${target}-pricing`);
+            });
+        });
+
+        // Stats animation
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000; // Animation duration in milliseconds
+                const step = target / (duration / 16); // 60 FPS
+
+                let current = 0;
+                const timer = setInterval(() => {
+                    current += step;
+                    stat.textContent = Math.floor(current) + '+';
+                    if (current >= target) {
+                        clearInterval(timer);
+                        stat.textContent = target + '+';
+                    }
+                }, 16);
+            });
+        }
+
+        // Intersection Observer to trigger animation when section is in view
+        const statsSection = document.querySelector('.stats-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+
+        // Function to open the plan container
+        function openContainer(plan) {
+            let containerId = '';
+            let iframeId = '';
+
+            if (plan.includes('commercial')) {
+                containerId = 'commercial-plan-container';
+                iframeId = 'commercial-plan-iframe';
+            } else if (plan.includes('industrial')) {
+                containerId = 'industrial-plan-container';
+                iframeId = 'industrial-plan-iframe';
+            } else {
+                containerId = 'residential-plan-container';
+                iframeId = 'residential-plan-iframe';
+            }
+
+            const container = document.getElementById(containerId);
+            const iframe = document.getElementById(iframeId);
+            
+            // Set the iframe source based on the plan
+            iframe.src = plan + '-quote.html';  // Assumes you have plan-specific HTML files
+            container.style.display = 'block';
+            
+            // Smooth scroll to the container
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Adjust iframe height after content loads
+            iframe.onload = function() {
+                this.style.height = this.contentWindow.document.body.scrollHeight + 'px';
+            };
+        }
+
+        // Function to close the plan container
+        function closeContainer() {
+            const containers = ['residential-plan-container', 'commercial-plan-container', 'industrial-plan-container'];
+            containers.forEach(id => {
+                const container = document.getElementById(id);
+                container.style.display = 'none';
+            });
+        }
+
+        // Add event listeners to the buttons
+        document.querySelectorAll('.plan-button').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default button behavior
+                const planType = button.getAttribute('data-plan');
+                openContainer(planType);
+            });
+        });
+
+        // Add event listeners to the close buttons
+        document.querySelectorAll('.close-plan-container').forEach(button => {
+            button.addEventListener('click', closeContainer);
+        });
+
+        // Add this to your existing JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.desktop-menu a[href^="#"], .mobile-menu a[href^="#"]');
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // Close mobile menu if it's open
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</body>
+</html>
